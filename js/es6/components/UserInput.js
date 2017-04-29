@@ -27,16 +27,16 @@ export default class UserInput extends React.Component{
 		return (
   <Form inline>
     <FormGroup controlId='formInlineURL'>
-      <ControlLabel>Strona na facebook{'\''}u</ControlLabel>
+      <ControlLabel>Facebook page URL</ControlLabel>
       {' '}
       <FormControl type='url' placeholder='www.facebook.com/warszawa'
         className='url-input' onChange={e => this.onInputChange( e, 'url' )} />
     </FormGroup>
     {' '}
     <FormGroup controlId='formInlineKeyword'>
-      <ControlLabel>Słowo kluczowe</ControlLabel>
+      <ControlLabel>Keyword</ControlLabel>
       {' '}
-      <FormControl type='text' placeholder='koncert' onChange={e => this.onInputChange( e, 'keyword' )} />
+      <FormControl type='text' placeholder='concert' onChange={e => this.onInputChange( e, 'keyword' )} />
     </FormGroup>
     {' '}
     <FormGroup controlId='formInlineEmail'>

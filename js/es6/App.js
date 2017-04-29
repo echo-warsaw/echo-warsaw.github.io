@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-
 import React from 'react';
 import UserInput from './components/UserInput';
 import ErrorModal from './components/ErrorModal';
