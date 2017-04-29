@@ -8,3 +8,7 @@ body {
 .small-header-text{
   display: block;
 }
+
+.error-modal{
+  color: black;
+}
