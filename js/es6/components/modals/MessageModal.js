@@ -1,26 +1,26 @@
 import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 
-const ErrorModal = props => (
+const MessageModal = props => (
   <Modal {...props} bsSize='small' aria-labelledby='modal-title' className='error-modal'>
     <Modal.Header closeButton>
-      <Modal.Title id='modal-title'>Your request has been rejected :(</Modal.Title>
+      <Modal.Title id='modal-title'>{props.content.title}</Modal.Title>
     </Modal.Header>
     <Modal.Body>
-      <p>{'Try checking your internet connection or if your facebook page url is valid'}</p>
+      <p>{props.content.body}</p>
     </Modal.Body>
     <Modal.Footer>
-      <Button bsSize='xsmall' onClick={props.onHide}>Close</Button>
+      <Button bsSize='xsmall' onClick={props.onHide}>{props.content.button}</Button>
     </Modal.Footer>
   </Modal>
     );
 
-ErrorModal.propTypes = {
+MessageModal.propTypes = {
 	onHide: React.PropTypes.func
 };
 
-ErrorModal.defaultProps = {
+MessageModal.defaultProps = {
 	onHide: () => console.log( 'Modal should hide' )
 };
 
-export default ErrorModal;
+export default MessageModal;
