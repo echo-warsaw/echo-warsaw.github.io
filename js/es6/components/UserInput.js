@@ -8,7 +8,7 @@ export default class UserInput extends React.Component{
 		this.state = {
 			'url': '',
 			'keyword': '',
-			'email': ''
+			'mail': ''
 		};
 
 		this.onSubmit = this.onSubmit.bind( this );
@@ -42,7 +42,7 @@ export default class UserInput extends React.Component{
     <FormGroup controlId='formInlineEmail'>
       <ControlLabel>Email</ControlLabel>
       {' '}
-      <FormControl type='email' placeholder='jane.doe@example.com' onChange={e => this.onInputChange( e, 'email' )} />
+      <FormControl type='email' placeholder='jane.doe@example.com' onChange={e => this.onInputChange( e, 'mail' )} />
     </FormGroup>
     {' '}
     <Button type='submit' onClick={this.onSubmit}>

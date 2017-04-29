@@ -14,15 +14,15 @@ module.exports = {
 				{
 					presets: [ 'es2015', 'react' ]
 				}
-			} ],
-	devtool: 'source-map',
-	plugins: [
-         new webpack.optimize.UglifyJsPlugin({
-             compress: {
-                 screw_ie8: true,
-                 warnings: false
-             }
-         })
-     ]
-	}
+			}
+		]
+	},
+	devServer: {
+        proxy: {'/api': {target: 'http://127.0.0.1:8001', secure: false, changeOrigin: true}},
+				contentBase: './',
+        hot: true,
+        inline: true,
+        port: 8080,
+        historyApiFallback: true
+  }
 };

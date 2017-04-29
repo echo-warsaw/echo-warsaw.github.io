@@ -28,7 +28,7 @@ export default class App extends React.Component {
 			     throw new Error( 'Server response is far from ok' );
 			}
 			console.log( 'Everything went alright! ( At least on frontend side ) )' );
-		} ).catch( () => {
+		} ).catch( (error) => {
 			console.error( 'There was some kind of problem with your request...' );
 			console.error( error );
 		} );

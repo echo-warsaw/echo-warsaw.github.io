@@ -1,1 +1,5 @@
 node_modules
+js/main.min.js
+js/main.min.js.map
+yarn-error.log
+npm-debug*
