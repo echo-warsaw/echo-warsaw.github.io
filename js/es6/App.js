@@ -35,8 +35,8 @@ export default class App extends React.Component {
 			if ( data.statusCode === 400 ){
 				throw new Error( 'Server response is far from ok' );
 			}
-			console.info( 'Everything went alright! ( At least on frontend side ) )' );
-		} ).catch( error => {
+			console.log( 'Everything went alright! ( At least on frontend side ) )' );
+		} ).catch( ( error ) => {
 			console.error( 'There was some kind of problem with your request...' );
 			console.error( error );
 			this.showError();

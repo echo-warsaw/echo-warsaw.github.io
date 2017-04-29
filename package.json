@@ -9,6 +9,7 @@
   "scripts": {
     "build": "webpack",
     "start": "webpack-dev-server --progress --colors",
+    "watch": "webpack -d && webpack-dev-server --inline --hot",
     "watch-sass": "node-sass css/sass -o css -w"
   },
   "author": "",
@@ -31,7 +32,7 @@
     "eslint-config-standard-react": "^4.2.0",
     "eslint-plugin-react": "^6.7.1",
     "node-sass": "^3.13.0",
-    "webpack": "^1.13.3",
-    "webpack-dev-server": "^1.16.2"
+    "webpack": "^2.2.1",
+    "webpack-dev-server": "^2.4.1"
   }
 }
