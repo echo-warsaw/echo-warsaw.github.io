@@ -13,7 +13,7 @@ export default class App extends React.Component {
 
 		const querySettings = {
 			method: 'POST',
-			body: { data }
+			body: JSON.stringify( { data } )
 		};
 
 		console.log( querySettings.body );
