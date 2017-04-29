@@ -1,5 +1,10 @@
 import React from 'react';
+import { PageHeader } from 'react-bootstrap';
 
-const Header = props => ( <h1>$echo-warsaw</h1> );
+const Header = () => (
+  <PageHeader>
+  $echo-warsaw
+  <small className='small-header-text'>get notified about your interests!</small>
+  </PageHeader> );
 
 export default Header;

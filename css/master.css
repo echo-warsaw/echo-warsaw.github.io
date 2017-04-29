@@ -4,3 +4,7 @@ body {
 
 .url-input {
   min-width: 300px; }
+
+.small-header-text{
+  display: block;
+}

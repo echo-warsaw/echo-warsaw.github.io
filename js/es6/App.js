@@ -18,8 +18,19 @@ export default class App extends React.Component {
 
 		console.log( querySettings.body );
 
-		fetch( url, querySettings ).then( ( ...args ) => {
-	     console.log( ...args );
+		fetch( url, querySettings ).then( response => {
+			if ( response.ok === true ) {
+				return response.json();
+			}
+			throw new Error( 'Query is inalid' );
+		} ).then( data => {
+			if ( data.statusCode === 400 ){
+			     throw new Error( 'Server response is far from ok' );
+			}
+			console.log( 'Everything went alright! ( At least on frontend side ) )' );
+		} ).catch( () => {
+			console.error( 'There was some kind of problem with your request...' );
+			console.error( error );
 		} );
 	}
 	render(){
