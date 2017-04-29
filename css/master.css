@@ -1,3 +1,6 @@
 body {
   background: #212121;
   color: #FFFFFF; }
+
+.url-input {
+  min-width: 300px; }
