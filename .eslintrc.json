@@ -6,6 +6,7 @@
 		"node": true,
 		"mocha": true
 	},
+	"globals": { "FB": true},
 	"extends": ["eslint:recommended", "standard-react"],
 	"parserOptions": {
 		"sourceType": "module",
