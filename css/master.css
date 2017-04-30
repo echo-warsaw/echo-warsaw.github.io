@@ -21,3 +21,7 @@ max-width:320px;background:#e6e6e6;border-radius:8px;box-shadow:0 0 40px -10px #
 .error-modal{
   color: black;
 }
+
+.checkbox-text{
+  margin-left: 8px;
+}

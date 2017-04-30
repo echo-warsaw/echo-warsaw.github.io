@@ -30,7 +30,7 @@ export default class App extends React.Component {
 			}
 			throw new Error( 'Query is invalid' );
 		} ).then( data => {
-			if ( data.statusCode === 400 ){
+			if ( data.statusCode === 500 ){
 				throw new Error( 'Server response is far from ok' );
 			} else {
 				this.showOkMessage();

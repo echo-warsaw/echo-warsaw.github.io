@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, FormGroup, FormControl, ControlLabel, Button, Checkbox, Col } from 'react-bootstrap';
+import { Form, FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
 
 export default class UserInput extends React.Component{
 	constructor( props ){
@@ -8,10 +8,12 @@ export default class UserInput extends React.Component{
 		this.state = {
 			'url': '',
 			'keyword': '',
-			'mail': ''
+			'mail': '',
+			'synonyms': false
 		};
 
 		this.onSubmit = this.onSubmit.bind( this );
+		this.onToggle = this.onToggle.bind( this );
 		this.onInputChange = this.onInputChange.bind( this );
 	}
 	onInputChange( e, type ){
@@ -22,6 +24,9 @@ export default class UserInput extends React.Component{
 	onSubmit( e ){
 		e.preventDefault();
 		this.props.onSubmit( this.state );
+	}
+	onToggle(){
+		this.setState( { synonyms: !this.state.synonyms } );
 	}
 	render(){
 		return (
@@ -38,7 +43,10 @@ export default class UserInput extends React.Component{
       <FormControl type='text' placeholder='concert' onChange={e => this.onInputChange( e, 'keyword' )} />
     </FormGroup>
     <FormGroup>
-      <Checkbox>search for synonyms as well</Checkbox>
+      <label className='custom-checkbox' onClick={this.onToggle}>
+        <input type='checkbox' />
+        <span className='checkbox-text'>search for synonyms as well</span>
+      </label>
     </FormGroup>
     <FormGroup controlId='formInlineEmail'>
       <ControlLabel>Email</ControlLabel>
