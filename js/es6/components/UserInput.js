@@ -11,7 +11,7 @@ export default class UserInput extends React.Component{
 				'keyword': '',
 				'mail': '',
 				'telephone': '',
-				'synonyms': false
+				'with_synonyms': false
 			},
 			'query': '',
 			'openPagesDropdown': false,
@@ -25,6 +25,12 @@ export default class UserInput extends React.Component{
 		this.onQueryKeyUp = this.onQueryKeyUp.bind( this );
 		this.onSelectPage = this.onSelectPage.bind( this );
 		this.onQueryInputClick = this.onQueryInputClick.bind( this );
+
+		// document.onkeyup = (e) => {
+		// 	if(e.keyCode == 27) {
+		// 		this.setState({openPagesDropdown: false});
+		// 	}
+		// }
 
 	}
 	onInputChange( e, type ){
@@ -95,9 +101,9 @@ export default class UserInput extends React.Component{
 		}
 	}
 	onToggle(){
-		const newSubscription = Object.assign( {}, this.state.subscription );
-		newSubscription.synonyms = !this.state.subscription.synonyms;
-		this.setState( { subscription: newSubscription } );
+		const newSubscription = Object.assign({}, this.state.subscription);
+		newSubscription.with_synonyms = !this.state.subscription.with_synonyms;
+		this.setState({subscription: newSubscription});
 	}
 	render(){
 		return (

@@ -2,6 +2,7 @@ import React from 'react';
 import UserInput from './components/UserInput';
 import { ErrorModal, OkModal } from './components/modals';
 import Header from './components/Header';
+import About from './components/About';
 
 
 export default class App extends React.Component {
@@ -54,12 +55,15 @@ export default class App extends React.Component {
 	}
 	render(){
 		return (
-  <div className='main-container'>
-    <Header />
-    <UserInput onSubmit={this.onSubmit} show={false}/>
-    <ErrorModal onHide={this.hideError} show={this.state.shouldShowError} />
-    <OkModal onHide={this.hideOkMessage} show={this.state.shouldShowOkMessage} />
-  </div>
+	<div>
+		<div className='main-container'>
+			<Header />
+			{/*<About />*/}
+			<UserInput onSubmit={this.onSubmit} show={false}/>
+			<ErrorModal onHide={this.hideError} show={this.state.shouldShowError} />
+			<OkModal onHide={this.hideOkMessage} show={this.state.shouldShowOkMessage} />
+		</div>
+	</div>
 		);
 	}
 }
