@@ -1,36 +1,107 @@
 import React from 'react';
-import { Form, FormGroup, FormControl, ControlLabel, Button, Checkbox, Col } from 'react-bootstrap';
+import { Form, FormGroup, FormControl, ControlLabel, Button, DropdownMenu, Dropdown, Input, MenuItem, DropdownToggle, Checkbox } from 'react-bootstrap';
+import {$FB_ACCESS_TOKEN} from '../constants';
 
 export default class UserInput extends React.Component{
 	constructor( props ){
 		super( props );
 
 		this.state = {
-			'url': '',
-			'keyword': '',
-			'mail': ''
+			'subscription': {
+				'id': '',
+				'keyword': '',
+				'mail': ''
+			},
+			'query': '',
+			'openPagesDropdown': false,
+			'pagesDropdownItems': []
 		};
 
 		this.onSubmit = this.onSubmit.bind( this );
 		this.onInputChange = this.onInputChange.bind( this );
+		this.onQueryKeyUp = this.onQueryKeyUp.bind( this );
+		this.onSelectPage = this.onSelectPage.bind( this );
+		this.onQueryInputClick = this.onQueryInputClick.bind( this );
+
 	}
 	onInputChange( e, type ){
-		const stateDiff = {};
-		stateDiff[ type ] =  e.target.value;
+		const stateDiff = {subscription: Object.assign({}, this.state.subscription)};
+		stateDiff.subscription[ type ] =  e.target.value;
 		this.setState( stateDiff );
 	}
 	onSubmit( e ){
 		e.preventDefault();
-		this.props.onSubmit( this.state );
+		this.props.onSubmit( this.state.subscription );
+	}
+	onQueryKeyUp( e ) {
+		this.setState({query: e.target.value});
+		if ( !this.state.query.length ) {
+			this.setState({openPagesDropdown: false});
+			return;
+		}
+
+		FB.api(
+			'/search',
+			{
+				'access_token': $FB_ACCESS_TOKEN,
+				'type': 'page',
+				'q': this.state.query
+			},
+			response => {
+				if ( response && response.error) {
+					console.log( 'sth goes wrong', response.error );
+				}
+				if ( response && !response.error ) {
+					this.setState({
+						pagesDropdownItems: response.data.slice(0, 10).map( el =>
+							<MenuItem eventKey={el.id} key={el.id} onSelect={this.onSelectPage}>{el.name}</MenuItem> ),
+						openPagesDropdown: true
+					});
+				}
+			} );
+	}
+	onSelectPage( eventKey, event ) {
+		if (!this.canModifyState)
+			return;
+		const newSubscription = Object.assign({}, this.state.subscription);
+		newSubscription.id = eventKey;
+		this.setState({
+			openPagesDropdown: false,
+			subscription: newSubscription
+		});
+		
+		this.queryInput.value = event.target.text
+	}
+	componentWillMount() {
+		this.canModifyState = false;
+	}
+	componentDidMount() {
+		console.log('here');
+		this.canModifyState = true;
+	}
+	onQueryInputClick() {
+		if (this.state.query.length)
+			this.setState({openPagesDropdown: true});
 	}
 	render(){
 		return (
   <Form>
     <FormGroup controlId='formInlineURL'>
-      <ControlLabel>Facebook page URL</ControlLabel>
+      <ControlLabel>Facebook page</ControlLabel>
       {' '}
-      <FormControl type='url' placeholder='www.facebook.com/warszawa'
-        className='url-input' onChange={e => this.onInputChange( e, 'url' )} />
+			<Dropdown id="pages-dropdown" open={this.state.openPagesDropdown} onToggle={(isOpen) => null}>
+				<FormControl type='text' placeholder='Teatr Powszechny'
+										 inputRef={input => this.queryInput = input}
+										 // onBlur={(e) => {this.setState({openPagesDropdown: false}); console.log(e.target); }}
+										 onChange={e => this.onInputChange( e, 'id' )}
+										 onKeyUp={this.onQueryKeyUp}
+										 onClick={this.onQueryInputClick}
+				/>
+				<Dropdown.Toggle style={ {display: 'none'} }/>
+				<Dropdown.Menu>
+					{this.state.pagesDropdownItems}
+				</Dropdown.Menu>
+    	</Dropdown>
     </FormGroup>
     <FormGroup controlId='formInlineKeyword'>
       <ControlLabel>Keyword</ControlLabel>
@@ -48,7 +119,8 @@ export default class UserInput extends React.Component{
     <Button type='submit' onClick={this.onSubmit} >
     Subskrybuj
     </Button>
-  </Form> );
+  </Form>
+		);
 	}
 }
 

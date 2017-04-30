@@ -3,6 +3,7 @@ import UserInput from './components/UserInput';
 import { ErrorModal, OkModal } from './components/modals';
 import Header from './components/Header';
 
+
 export default class App extends React.Component {
 	constructor( props ){
 		super( props );
@@ -55,7 +56,7 @@ export default class App extends React.Component {
 		return (
   <div className='main-container'>
     <Header />
-    <UserInput onSubmit={this.onSubmit} />
+    <UserInput onSubmit={this.onSubmit} show={false}/>
     <ErrorModal onHide={this.hideError} show={this.state.shouldShowError} />
     <OkModal onHide={this.hideOkMessage} show={this.state.shouldShowOkMessage} />
   </div>
