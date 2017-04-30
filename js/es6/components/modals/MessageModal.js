@@ -10,17 +10,23 @@ const MessageModal = props => (
       <p>{props.content.body}</p>
     </Modal.Body>
     <Modal.Footer>
-      <Button bsSize='xsmall' onClick={props.onHide}>{props.content.button}</Button>
+      <Button bsSize='small' onClick={props.onHide}>{props.content.button}</Button>
     </Modal.Footer>
   </Modal>
     );
 
 MessageModal.propTypes = {
-	onHide: React.PropTypes.func
+	onHide: React.PropTypes.func,
+	content: React.PropTypes.object
 };
 
 MessageModal.defaultProps = {
-	onHide: () => console.log( 'Modal should hide' )
+	onHide: () => console.log( 'Modal should hide' ),
+	content: {
+		title: 'default title',
+		body: 'write some message body here',
+		button: 'this text appears inside closing button'
+	}
 };
 
 export default MessageModal;
