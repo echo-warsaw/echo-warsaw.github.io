@@ -11,7 +11,6 @@ export default class Header extends React.Component {
 	}
 	componentDidMount() {
 	  window.setInterval(() => {
-	    console.log(this.commandPrompt, this)
 	    if (this.state.showCommandPrompt)
 	      this.commandPrompt.style.opacity = 0;
 	    else

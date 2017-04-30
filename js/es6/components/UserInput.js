@@ -1,7 +1,6 @@
 import React from 'react';
-import { Form, FormGroup, FormControl, ControlLabel, Button, DropdownMenu, Dropdown, Input, MenuItem, DropdownToggle, Checkbox } from 'react-bootstrap';
+import { Form, FormGroup, FormControl, ControlLabel, Button, DropdownMenu, Dropdown, Input, MenuItem, DropdownToggle } from 'react-bootstrap';
 import {$FB_ACCESS_TOKEN} from '../constants';
-
 export default class UserInput extends React.Component{
 	constructor( props ){
 		super( props );
@@ -10,7 +9,9 @@ export default class UserInput extends React.Component{
 			'subscription': {
 				'id': '',
 				'keyword': '',
-				'mail': ''
+				'mail': '',
+				'telephone': '',
+				'synonyms': false
 			},
 			'query': '',
 			'openPagesDropdown': false,
@@ -18,6 +19,7 @@ export default class UserInput extends React.Component{
 		};
 
 		this.onSubmit = this.onSubmit.bind( this );
+		this.onToggle = this.onToggle.bind( this );
 		this.onInputChange = this.onInputChange.bind( this );
 		this.onQueryKeyUp = this.onQueryKeyUp.bind( this );
 		this.onSelectPage = this.onSelectPage.bind( this );
@@ -82,9 +84,14 @@ export default class UserInput extends React.Component{
 		if (this.state.query.length)
 			this.setState({openPagesDropdown: true});
 	}
+	onToggle(){
+		const newSubscription = Object.assign({}, this.state.subscription);
+		newSubscription.synonyms = !this.state.subscription.synonyms;
+		this.setState({subscription: newSubscription});
+	}
 	render(){
 		return (
-  <Form>
+  <Form style={{'margin-top': '2rem'}}>
     <FormGroup controlId='formInlineURL'>
       <ControlLabel>Facebook page</ControlLabel>
       {' '}
@@ -108,7 +115,10 @@ export default class UserInput extends React.Component{
       <FormControl type='text' placeholder='concert' onChange={e => this.onInputChange( e, 'keyword' )} />
     </FormGroup>
     <FormGroup>
-      <Checkbox>search for synonyms as well</Checkbox>
+			<input id='checkbox-input' type='checkbox' onClick={this.onToggle}/>
+			<label id='checkbox-input-label' className='custom-checkbox' htmlFor="checkbox-input">
+				search for synonyms as well
+			</label>
     </FormGroup>
     <FormGroup controlId='formInlineEmail'>
       <ControlLabel>Email</ControlLabel>
@@ -116,13 +126,15 @@ export default class UserInput extends React.Component{
       <FormControl type='email' placeholder='jane.doe@example.com' onChange={e => this.onInputChange( e, 'mail' )} />
     </FormGroup>
 		<FormGroup controlId='formInlineTelephone'>
-      <ControlLabel>Telephone</ControlLabel>
+      <ControlLabel>Telephone <small>(optional)</small></ControlLabel>
       {' '}
-      <FormControl type='telephone' placeholder='800 707 112' onChange={e => this.onInputChange( e, 'mail' )} />
+      <FormControl type='telephone' placeholder='800 707 112' onChange={e => this.onInputChange( e, 'telephone' )} />
     </FormGroup>
-    <Button type='submit' onClick={this.onSubmit} >
-    Subskrybuj
-    </Button>
+		<FormGroup style={{height: '50px'}}>
+			<Button type='submit' onClick={this.onSubmit} style={{float: 'right', 'margin-top': '20px', 'font-size': '1rem'}} bsSize="lg">
+			Subskrybuj
+			</Button>
+		</FormGroup>
   </Form>
 		);
 	}

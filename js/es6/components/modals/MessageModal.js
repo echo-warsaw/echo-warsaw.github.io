@@ -2,7 +2,7 @@ import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 
 const MessageModal = props => (
-  <Modal {...props} bsSize='small' aria-labelledby='modal-title' className='error-modal'>
+  <Modal {...props} bsSize='large' aria-labelledby='modal-title' className='error-modal'>
     <Modal.Header closeButton>
       <Modal.Title id='modal-title'>{props.content.title}</Modal.Title>
     </Modal.Header>
