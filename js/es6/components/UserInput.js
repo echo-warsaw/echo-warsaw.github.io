@@ -76,7 +76,6 @@ export default class UserInput extends React.Component{
 		this.canModifyState = false;
 	}
 	componentDidMount() {
-		console.log('here');
 		this.canModifyState = true;
 	}
 	onQueryInputClick() {
@@ -115,6 +114,11 @@ export default class UserInput extends React.Component{
       <ControlLabel>Email</ControlLabel>
       {' '}
       <FormControl type='email' placeholder='jane.doe@example.com' onChange={e => this.onInputChange( e, 'mail' )} />
+    </FormGroup>
+		<FormGroup controlId='formInlineTelephone'>
+      <ControlLabel>Telephone</ControlLabel>
+      {' '}
+      <FormControl type='telephone' placeholder='800 707 112' onChange={e => this.onInputChange( e, 'mail' )} />
     </FormGroup>
     <Button type='submit' onClick={this.onSubmit} >
     Subskrybuj
