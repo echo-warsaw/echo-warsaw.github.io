@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, FormGroup, FormControl, ControlLabel, Button, Dropdown, MenuItem } from 'react-bootstrap';
+import { Form, FormGroup, FormControl, ControlLabel, Button, Dropdown, MenuItem, Tooltip } from 'react-bootstrap';
 import { $FB_ACCESS_TOKEN } from '../constants';
 export default class UserInput extends React.Component{
 	constructor( props ){
@@ -15,7 +15,8 @@ export default class UserInput extends React.Component{
 			},
 			'query': '',
 			'openPagesDropdown': false,
-			'pagesDropdownItems': []
+			'pagesDropdownItems': [],
+			'showKeywordError': false
 		};
 
 		this.onSubmit = this.onSubmit.bind( this );
@@ -33,6 +34,13 @@ export default class UserInput extends React.Component{
 	}
 	onSubmit( e ){
 		e.preventDefault();
+		if ( this.state.subscription.keyword.length < 3 && this.state.showKeywordError === false ){
+			this.setState( { showKeywordError: true } );
+			return;
+		}
+		if ( this.state.showKeywordError === true ){
+			this.setState( { showKeywordError: false } );
+		}
 		this.props.onSubmit( this.state.subscription );
 	}
 	onQueryKeyUp( e ) {
@@ -112,8 +120,10 @@ export default class UserInput extends React.Component{
     </FormGroup>
     <FormGroup controlId='formInlineKeyword'>
       <ControlLabel>Keyword</ControlLabel>
-      {' '}
-      <FormControl type='text' placeholder='concert' onChange={e => this.onInputChange( e, 'keyword' )} />
+      {( this.state.showKeywordError ) ?
+			( <Tooltip style={{ 'display': 'inline', 'margin-left': '8px', 'background-color': '#FF9494' }} placement='right' className='in' id='tooltip-right'>3 characters minimum</Tooltip>
+		) : null}
+      <FormControl required type='text' placeholder='concert' pattern='.{3,}' title='3 characters minimum' onChange={e => this.onInputChange( e, 'keyword' )} />
     </FormGroup>
     <FormGroup>
       <input id='checkbox-input' type='checkbox' onClick={this.onToggle} />
@@ -124,7 +134,7 @@ export default class UserInput extends React.Component{
     <FormGroup controlId='formInlineEmail'>
       <ControlLabel>Email</ControlLabel>
       {' '}
-      <FormControl type='email' placeholder='jane.doe@example.com' onChange={e => this.onInputChange( e, 'mail' )} />
+      <FormControl required type='email' placeholder='jane.doe@example.com' onChange={e => this.onInputChange( e, 'mail' )} />
     </FormGroup>
     <FormGroup controlId='formInlineTelephone'>
       <ControlLabel>Telephone <small>(optional)</small></ControlLabel>
