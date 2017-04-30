@@ -24,21 +24,18 @@ export default class App extends React.Component {
 			body: JSON.stringify( { data } )
 		};
 
-		console.log( querySettings.body );
-
 		fetch( url, querySettings ).then( response => {
 			if ( response.ok === true ) {
 				return response.json();
 			}
-			throw new Error( 'Query is inalid' );
+			throw new Error( 'Query is invalid' );
 		} ).then( data => {
 			if ( data.statusCode === 400 ){
 				throw new Error( 'Server response is far from ok' );
+			} else {
+				this.showOkMessage();
 			}
-			console.log( 'Everything went alright! ( At least on frontend side ) )' );
-		} ).catch( ( error ) => {
-			console.error( 'There was some kind of problem with your request...' );
-			console.error( error );
+		} ).catch( () => {
 			this.showError();
 		} );
 	}
@@ -56,7 +53,7 @@ export default class App extends React.Component {
 	}
 	render(){
 		return (
-  <div>
+  <div className='main-container'>
     <Header />
     <UserInput onSubmit={this.onSubmit} />
     <ErrorModal onHide={this.hideError} show={this.state.shouldShowError} />
