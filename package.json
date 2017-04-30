@@ -8,8 +8,8 @@
   },
   "scripts": {
     "build": "webpack",
-    "start": "webpack-dev-server --progress --colors",
-    "watch": "webpack -d && webpack-dev-server --inline --hot",
+    "start": "webpack-dev-server --progress --colors --hot",
+    "watch": "webpack -d && webpack-dev-server --inline",
     "watch-sass": "node-sass css/sass -o css -w"
   },
   "author": "",
